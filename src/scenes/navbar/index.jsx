@@ -45,6 +45,7 @@ const Navbar = () => {
     // !
     <FlexBetween padding='1rem 6%' backgroundColor={alt}>
       <FlexBetween gap='1.75rem'>
+        {/* LOGO */}
         <Typography
           fontWeight='bold'
           // fontSize='clamp(1rem,2rem,2.25rem'
@@ -60,7 +61,7 @@ const Navbar = () => {
             },
           }}
         >
-          Social Media
+          Social App
         </Typography>
 
         {/* DESKTOP SEARCH */}
