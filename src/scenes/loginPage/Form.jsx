@@ -8,7 +8,7 @@ import {
   useTheme,
 } from '@mui/material'
 import { Formik } from 'formik'
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import Dropzone from 'react-dropzone'
 import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
@@ -60,6 +60,8 @@ const Form = () => {
     //
   }
 
+  const formRef = useRef(null) // reset form TAB focus to beginning if switch between Login/Register State
+
   return (
     <Formik
       onSubmit={handleFormSubmit}
@@ -85,7 +87,10 @@ const Form = () => {
               '& > div': {
                 gridColumn: isNonMobile ? undefined : 'span 4',
               },
+              outline: 'none', // reset form TAB focus to beginning if switch between Login/Register State
             }}
+            ref={formRef}
+            tabIndex={-1}
           >
             {isRegister && (
               <>
@@ -219,17 +224,20 @@ const Form = () => {
             >
               {isLogin ? 'LOGIN' : 'REGISTER'}
             </Button>
-            <Typography
+            <Button
+              variant='text'
               onClick={() => {
                 setPageType(isLogin ? 'register' : 'login')
                 // TODO: const vars? enum?
                 resetForm()
+                formRef.current.focus() // reset form TAB focus to beginning if switch between Login/Register State
               }}
               sx={{
                 width: 'fit-content',
                 textDecoration: 'underline',
                 // color: palette.primary.main,
                 color: palette.primary.light,
+                fontWeight: '400',
                 '&:hover': {
                   cursor: 'pointer',
                   //   color: palette.primary.light,
@@ -240,7 +248,7 @@ const Form = () => {
               {isLogin
                 ? `Don't have an account? Sign Up here.`
                 : `Already have an account? Login here.`}
-            </Typography>
+            </Button>
           </Box>
         </form>
       )}
