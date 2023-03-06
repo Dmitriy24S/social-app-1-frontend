@@ -226,6 +226,7 @@ const Form = () => {
                 resetForm()
               }}
               sx={{
+                width: 'fit-content',
                 textDecoration: 'underline',
                 // color: palette.primary.main,
                 color: palette.primary.light,
