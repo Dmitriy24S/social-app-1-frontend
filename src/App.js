@@ -14,6 +14,7 @@ function App() {
   const theme = useMemo(() => createTheme(themeSettings(mode)), [mode])
   console.log('theme', theme)
   // theme {breakpoints: {…}, direction: 'ltr', components: {…}, palette: {…}, spacing: ƒ, …} // !
+  const isAuth = Boolean(useSelector((state) => state.token))
 
   return (
     <div className='app'>
@@ -22,9 +23,13 @@ function App() {
           <CssBaseline />
           {/* resets css for MUI */}
           <Routes>
-            <Route path='/' element={<HomePage />} />
-            <Route path='/home' element={<LoginPage />} />
-            <Route path='/profile/:userId' element={<ProfilePage />} />
+            <Route path='/' element={<LoginPage />} />
+            <Route path='/home' element={isAuth ? <HomePage /> : <Navigate to='/' />} />
+            {/* ! could manualy set token in localstorage? but routes are protected? */}
+            <Route
+              path='/profile/:userId'
+              element={isAuth ? <ProfilePage /> : <Navigate to='/' />}
+            />
           </Routes>
         </ThemeProvider>
       </BrowserRouter>
