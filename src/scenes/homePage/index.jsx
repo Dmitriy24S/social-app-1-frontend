@@ -1,6 +1,7 @@
 import { Box, useMediaQuery } from '@mui/material'
 import { useSelector } from 'react-redux'
 import Navbar from 'scenes/navbar'
+import CreatePostWidget from '../widgets/CreatePostWidget'
 import UserWidget from '../widgets/UserWidget'
 
 const HomePage = () => {
@@ -29,7 +30,8 @@ const HomePage = () => {
           mt={isNonMobileScreen ? undefined : '2rem'}
           // on smaller screen stacked give spacing?
         >
-          Posts Widgets
+          {/* Posts Widgets // ! */}
+          <CreatePostWidget picturePath={picturePath} />
         </Box>
         {/* FRIEND LIST DESKTOP ONLY? */}
         {isNonMobileScreen && (
