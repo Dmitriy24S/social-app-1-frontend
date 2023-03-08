@@ -2,6 +2,7 @@ import { Box, useMediaQuery } from '@mui/material'
 import { useSelector } from 'react-redux'
 import Navbar from 'scenes/navbar'
 import CreatePostWidget from '../widgets/CreatePostWidget'
+import PostsWidget from '../widgets/PostsWidget'
 import UserWidget from '../widgets/UserWidget'
 
 const HomePage = () => {
@@ -9,6 +10,7 @@ const HomePage = () => {
   console.log('isNonMobileScreen:', isNonMobileScreen)
   // const userId = useSelector((state) => state.user._id)
   const { _id, picturePath } = useSelector((state) => state.user)
+
   return (
     <Box>
       <Navbar />
@@ -20,18 +22,21 @@ const HomePage = () => {
         justifyContent='space-between'
       >
         {/* <h1>HomePage</h1> */}
+        {/* USER INFO */}
         <Box
           flexBasis={isNonMobileScreen ? '26%' : undefined} // !
         >
           <UserWidget userId={_id} picturePath={picturePath} />
         </Box>
+        {/* POSTS */}
         <Box
           flexBasis={isNonMobileScreen ? '42%' : undefined}
           mt={isNonMobileScreen ? undefined : '2rem'}
           // on smaller screen stacked give spacing?
         >
-          {/* Posts Widgets // ! */}
+          {/* Posts Widgets */}
           <CreatePostWidget picturePath={picturePath} />
+          <PostsWidget userId={_id} />
         </Box>
         {/* FRIEND LIST DESKTOP ONLY? */}
         {isNonMobileScreen && (
