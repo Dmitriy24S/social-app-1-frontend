@@ -70,7 +70,7 @@ const PostWidget = ({
       {/* PostWidget */}
       {/* AUTHOR INFO */}
       <Friend
-        friendId={postUserId}
+        friendId={postUserId} // !
         name={name}
         subtitle={location}
         userPicturePath={userPicturePath}

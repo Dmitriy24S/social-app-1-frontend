@@ -8,3 +8,13 @@ body,
   width: 100%;
   font-family: 'Rubik', sans-serif;
 }
+
+html {
+  box-sizing: border-box;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+}
