@@ -38,24 +38,28 @@ const CreatePostWidget = ({ picturePath }) => {
   const mediumMain = palette.neutral.mediumMain
   const medium = palette.neutral.medium // ! destructure?
 
-  const handlePost = async () => {
-    const formData = new FormData() // going to manually append again
-    formData.append('userId', _id) // !
-    formData.append('description', post)
-    if (image) {
-      formData.append('picture', image) // picture = key, 'picture' in backend, multer
-      formData.append('picturePath', image.name) // !
+  const handleCreatePost = async () => {
+    try {
+      const formData = new FormData() // going to manually append again
+      formData.append('userId', _id) // !
+      formData.append('description', post)
+      if (image) {
+        formData.append('picture', image) // picture = key, 'picture' in backend, multer
+        formData.append('picturePath', image.name) // !
+      }
+      const response = await fetch(`http://localhost:3001/posts`, {
+        method: 'POST',
+        headers: { Authorization: `Bearer ${token}` },
+        body: formData,
+      })
+      const posts = await response.json() // backend returns the list of updated posts
+      dispatch(setPosts({ posts })) // ! {}
+      setImage(null) // reset once make api call
+      setPosts('')
+    } catch (error) {
+      console.log('handleCreatePost error', error)
+      alert('handleCreatePost error')
     }
-
-    const response = await fetch(`http://localhost:3001/posts`, {
-      method: 'POST',
-      headers: { Authorization: `Bearer ${token}` },
-      body: formData,
-    })
-    const posts = await response.json() // backend returns the list of updated posts
-    dispatch(setPosts({ posts })) // ! {}
-    setImage(null) // reset once make api call
-    setPosts('')
   }
 
   return (
@@ -196,7 +200,7 @@ const CreatePostWidget = ({ picturePath }) => {
         )}
         <Button
           disabled={!post}
-          onClick={handlePost}
+          onClick={handleCreatePost}
           sx={{
             color: palette.background.alt,
             backgroundColor: !post ? palette.primary.light : palette.primary.main,
