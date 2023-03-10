@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux'
 import Navbar from 'scenes/navbar'
 import AdvertWidget from '../widgets/AdvertWidget'
 import CreatePostWidget from '../widgets/CreatePostWidget'
+import FriendListWidget from '../widgets/FriendListWidget'
 import PostsWidget from '../widgets/PostsWidget'
 import UserWidget from '../widgets/UserWidget'
 
@@ -48,6 +49,10 @@ const HomePage = () => {
         <Box flexBasis={isNonMobileScreen ? '26%' : undefined}>
           <AdvertWidget />
           Friends Widgets
+          <Box m='2rem 0'>
+            {/* Friends Widgets */}
+            <FriendListWidget userId={_id} />
+          </Box>
         </Box>
         {/* )} */}
       </Box>

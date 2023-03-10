@@ -5,6 +5,7 @@ import { useParams } from 'react-router-dom'
 import Navbar from '../navbar'
 import AdvertWidget from '../widgets/AdvertWidget'
 import CreatePostWidget from '../widgets/CreatePostWidget'
+import FriendListWidget from '../widgets/FriendListWidget'
 import PostsWidget from '../widgets/PostsWidget'
 import UserWidget from '../widgets/UserWidget'
 
@@ -14,7 +15,7 @@ const ProfilePage = () => {
   const token = useSelector((state) => state.token) // !
   // const userId = useSelector((state) => state.user._id)
   const { _id, picturePath } = useSelector((state) => state.user) // ! this time not logged in user, url user therefore:
-  const { userId } = useParams()
+  const { userId } = useParams() // selected userId
   const [user, setUser] = useState(null)
   console.log('state user _id', _id, 'url params userId', userId)
 
@@ -74,6 +75,12 @@ const ProfilePage = () => {
         {/* {isNonMobileScreen && ( */}
         <Box flexBasis={isNonMobileScreen ? '26%' : undefined}>
           <AdvertWidget />
+          <Box m='2rem 0'>
+            {/* Friends Widgets */}
+            <FriendListWidget userId={userId} />
+            {/* // ! userId: selected profile userId (
+            {/* // ! _id: logged in user */}
+          </Box>
         </Box>
         {/* )} */}
       </Box>

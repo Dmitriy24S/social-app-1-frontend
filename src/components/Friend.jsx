@@ -20,6 +20,7 @@ const Friend = ({ friendId, name, subtitle, userPicturePath }) => {
   const medium = palette.neutral.medium // muted gray
 
   const isFriend = friends.find((friend) => friend._id === friendId)
+  const isFriendTheLoggedInUser = _id === friendId
 
   const patchFriend = async () => {
     const response = await fetch(`http://localhost:3001/users/${_id}/${friendId}`, {
@@ -65,21 +66,25 @@ const Friend = ({ friendId, name, subtitle, userPicturePath }) => {
         </Box>
       </FlexBetween>
       {/* Add/Remove FRIEND Icon Button */}
-      <IconButton
-        onClick={() => patchFriend()}
-        sx={{
-          backgroundColor: primaryLight, // cyan, hover: dark circle
-          p: '0.6rem',
-        }}
-      >
-        {isFriend ? (
-          <PersonRemoveOutlined sx={{ color: primaryDark }} /> // muted cyan svg inside
-        ) : (
-          // <PersonRemoveOutlined /> // white svg inside
-          <PersonAddOutlined sx={{ color: primaryDark }} /> // muted cyan svg inside
-          // <PersonAddOutlined /> // white svg inside
-        )}
-      </IconButton>
+      {!isFriendTheLoggedInUser ? (
+        <IconButton
+          onClick={() => patchFriend()}
+          sx={{
+            backgroundColor: primaryLight, // cyan, hover: dark circle
+            p: '0.6rem',
+          }}
+        >
+          {isFriend ? (
+            <PersonRemoveOutlined sx={{ color: primaryDark }} /> // muted cyan svg inside
+          ) : (
+            // <PersonRemoveOutlined /> // white svg inside
+            <PersonAddOutlined sx={{ color: primaryDark }} /> // muted cyan svg inside
+            // <PersonAddOutlined /> // white svg inside
+          )}
+        </IconButton>
+      ) : (
+        <Typography color={medium}>(you)</Typography>
+      )}
     </FlexBetween>
   )
 }
