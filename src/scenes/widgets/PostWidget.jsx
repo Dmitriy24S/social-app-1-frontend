@@ -66,7 +66,7 @@ const PostWidget = ({
     //   borderRadius='0.75rem'
     //   backgroundColor={palette.background.alt}
     // >
-    <WidgetWrapper m='2rem 0'>
+    <WidgetWrapper mb='2rem'>
       {/* PostWidget */}
       {/* AUTHOR INFO */}
       <Friend

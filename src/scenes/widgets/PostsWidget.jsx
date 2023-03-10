@@ -54,6 +54,7 @@ const PostsWidget = ({ userId, isProfile = false }) => {
       {posts.map(
         ({
           _id,
+          userId, // !
           firstName,
           lastName,
           description,
@@ -62,7 +63,6 @@ const PostsWidget = ({ userId, isProfile = false }) => {
           userPicturePath,
           likes,
           comments,
-          // !
         }) => (
           <PostWidget
             key={_id}
