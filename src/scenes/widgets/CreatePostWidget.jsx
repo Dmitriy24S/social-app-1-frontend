@@ -5,7 +5,7 @@ import {
   GifBoxOutlined,
   ImageOutlined,
   MicOutlined,
-  MoreHorizOutlined
+  MoreHorizOutlined,
 } from '@mui/icons-material'
 import {
   Box,
@@ -15,7 +15,7 @@ import {
   InputBase,
   Typography,
   useMediaQuery,
-  useTheme
+  useTheme,
 } from '@mui/material'
 import { useState } from 'react'
 import Dropzone from 'react-dropzone'
@@ -207,6 +207,18 @@ const CreatePostWidget = ({ picturePath }) => {
             backgroundColor: !post ? palette.primary.light : palette.primary.main,
             borderRadius: '3rem',
             marginLeft: 'auto',
+            // !
+            '&:hover': {
+              // backgroundColor: palette.primary.light,
+              // backgroundColor: palette.primary.main,
+              // backgroundColor: palette.primary.dark,
+              // color: palette.neutral.dark,
+              // color: palette.background.alt,
+              // color: palette.primary.light,
+              // color: palette.primary.dark,
+              color: palette.primary.main,
+              // default? mui half transparent bg + cyan text
+            },
           }}
         >
           POST
