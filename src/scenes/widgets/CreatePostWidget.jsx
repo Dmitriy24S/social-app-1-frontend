@@ -5,7 +5,7 @@ import {
   GifBoxOutlined,
   ImageOutlined,
   MicOutlined,
-  MoreHorizOutlined,
+  MoreHorizOutlined
 } from '@mui/icons-material'
 import {
   Box,
@@ -15,7 +15,7 @@ import {
   InputBase,
   Typography,
   useMediaQuery,
-  useTheme,
+  useTheme
 } from '@mui/material'
 import { useState } from 'react'
 import Dropzone from 'react-dropzone'
@@ -55,7 +55,8 @@ const CreatePostWidget = ({ picturePath }) => {
       const posts = await response.json() // backend returns the list of updated posts
       dispatch(setPosts({ posts })) // ! {}
       setImage(null) // reset once make api call
-      setPosts('')
+      // setPosts('') // !
+      setPost('') // clear input after submit
     } catch (error) {
       console.log('handleCreatePost error', error)
       alert('handleCreatePost error')
