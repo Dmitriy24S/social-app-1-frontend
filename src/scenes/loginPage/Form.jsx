@@ -55,66 +55,75 @@ const Form = () => {
   const isNonMobile = useMediaQuery('(min-width: 600px)')
   const isLogin = pageType === 'login'
   const isRegister = pageType === 'register'
-
   const register = async (values, onSubmitProps) => {
-    // because have picture image use FormData from JS API - allows to send form info with image
-    const formData = new FormData()
-    // cycle through values object
-    for (let value in values) {
-      formData.append(value, values[value])
-    }
-    formData.append('picturePath', values.picture.name) // manually append
+    try {
+      // because have picture image use FormData from JS API - allows to send form info with image
+      const formData = new FormData()
+      // cycle through values object
+      for (let value in values) {
+        formData.append(value, values[value])
+      }
+      formData.append('picturePath', values.picture.name) // manually append
 
-    const savedUserResponse = await fetch('http://localhost:3001/auth/register', {
-      method: 'POST',
-      body: formData,
-    })
-    const savedUser = await savedUserResponse.json()
-    onSubmitProps.resetForm()
+      const savedUserResponse = await fetch('http://localhost:3001/auth/register', {
+        method: 'POST',
+        body: formData,
+      })
+      const savedUser = await savedUserResponse.json()
+      onSubmitProps.resetForm()
 
-    if (savedUser) {
-      setPageType('login')
+      if (savedUser) {
+        setPageType('login')
+      }
+    } catch (error) {
+      console.log('register error', error)
+      alert('register error')
     }
   }
 
   const login = async (values, onSubmitProps) => {
-    const loggedInResponse = await fetch('http://localhost:3001/auth/login', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(values),
-    })
+    try {
+      const loggedInResponse = await fetch('http://localhost:3001/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(values),
+      })
 
-    const loggedIn = await loggedInResponse.json()
-    onSubmitProps.resetForm()
-    // console.log('login fetch, loggedIn:', loggedIn)
-    // {
-    //     "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0MDVhOWFlNGU0ZDU4NjViYzdkMTQ1NiIsImlhdCI6MTY3ODA5MzI4Mn0.sVM4lVXbJXMXeOoE_JnqG8fX91zoDS-Af7FHvNz8SR0",
-    //     "user": {
-    //         "_id": "6405a9ae4e4d5865bc7d1456",
-    //         "firstName": "test1",
-    //         "lastName": "test1",
-    //         "email": "test1@test.com",
-    //         "password": "$2b$10$vrFEF3bJgUwr4TAUWpiL.e7/yTaNwiP9/s7unr1fCBi3lqEZXVky.",
-    //         "picturePath": "p3.jpeg",
-    //         "friends": [],
-    //         "location": "test1",
-    //         "occupation": "test1",
-    //         "viewedProfile": 2164,
-    //         "impressions": 8147,
-    //         "createdAt": "2023-03-06T08:51:58.441Z",
-    //         "updatedAt": "2023-03-06T08:51:58.441Z",
-    //         "__v": 0
-    //     }
-    // }
+      const loggedIn = await loggedInResponse.json()
+      onSubmitProps.resetForm()
+      // console.log('login fetch, loggedIn:', loggedIn)
+      // {
+      //     "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0MDVhOWFlNGU0ZDU4NjViYzdkMTQ1NiIsImlhdCI6MTY3ODA5MzI4Mn0.sVM4lVXbJXMXeOoE_JnqG8fX91zoDS-Af7FHvNz8SR0",
+      //     "user": {
+      //         "_id": "6405a9ae4e4d5865bc7d1456",
+      //         "firstName": "test1",
+      //         "lastName": "test1",
+      //         "email": "test1@test.com",
+      //         "password": "$2b$10$vrFEF3bJgUwr4TAUWpiL.e7/yTaNwiP9/s7unr1fCBi3lqEZXVky.",
+      //         "picturePath": "p3.jpeg",
+      //         "friends": [],
+      //         "location": "test1",
+      //         "occupation": "test1",
+      //         "viewedProfile": 2164,
+      //         "impressions": 8147,
+      //         "createdAt": "2023-03-06T08:51:58.441Z",
+      //         "updatedAt": "2023-03-06T08:51:58.441Z",
+      //         "__v": 0
+      //     }
+      // }
 
-    if (loggedIn) {
-      dispatch(
-        setLogin({
-          user: loggedIn.user, // pass as redux payload
-          token: loggedIn.token,
-        })
-      )
-      navigate('/home')
+      if (loggedIn) {
+        dispatch(
+          setLogin({
+            user: loggedIn.user, // pass as redux payload
+            token: loggedIn.token,
+          })
+        )
+        navigate('/home')
+      }
+    } catch (error) {
+      console.log('login error', error)
+      alert('login error')
     }
   }
 
