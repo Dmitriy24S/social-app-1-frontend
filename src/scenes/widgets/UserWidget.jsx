@@ -95,7 +95,11 @@ const UserWidget = ({ userId, picturePath }) => {
             >
               {firstName} {lastName}
             </Typography>
-            <Typography color={medium}>{friends.length} friends</Typography>
+            {friends && (
+              <Typography color={medium}>
+                {friends.length} {friends.length === 1 ? 'friend' : 'friends'}
+              </Typography>
+            )}
           </Box>
         </FlexBetween>
         {/* <Button> */}
@@ -130,14 +134,14 @@ const UserWidget = ({ userId, picturePath }) => {
       {/* main clr = light gray */}
       <Box p='1rem 0'>
         {/* 1rem top 0 left/right */}
-        <FlexBetween mb='0.5rem' pr='0.4rem'>
+        <FlexBetween mb='0.5rem' pr='0.4rem' gap='0.3rem'>
           {/* because if use IconButton have extra added spacing? add pr 0.4rem? */}
           <Typography color={medium}>Who's viewed your profile</Typography>
           <Typography color={main} fontWeight='500'>
             {viewedProfile}
           </Typography>
         </FlexBetween>
-        <FlexBetween pr='0.4rem'>
+        <FlexBetween pr='0.4rem' gap='0.3rem'>
           <Typography color={medium}>Impressions of your post</Typography>
           <Typography color={main} fontWeight='500'>
             {impressions}
