@@ -157,10 +157,13 @@ const Navbar = () => {
           bottom='0'
           height='100%'
           zIndex='10'
-          maxWidth='500px'
-          minWidth='300px'
+          // maxWidth='500px'
+          maxWidth='300px'
+          minWidth='200px'
           // backgroundColor={background}
           backgroundColor={alt}
+          // borderLeft='1px solid #303030'
+          borderLeft={`1px solid ${theme.palette.neutral.light}`} // !
         >
           {/* CLOSE ICON */}
           <Box
