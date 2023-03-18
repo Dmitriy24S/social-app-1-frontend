@@ -1,3 +1,4 @@
+import styled from '@emotion/styled'
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined'
 import {
   Box,
@@ -47,8 +48,8 @@ const initialValuesRegister = {
 // }
 
 const Form = () => {
-  const [pageType, setPageType] = useState('login')
-  //   const [pageType, setPageType] = useState('register')
+  // const [pageType, setPageType] = useState('login')
+  const [pageType, setPageType] = useState('register')
   const { palette } = useTheme()
   const dispatch = useDispatch()
   const navigate = useNavigate()
@@ -135,6 +136,29 @@ const Form = () => {
 
   const formRef = useRef(null) // reset form TAB focus to beginning if switch between Login/Register State
 
+  const CssTextField = styled(TextField)({
+    // '& label.Mui-focused': {
+    // color: 'green',
+    // },
+    // '& .MuiInput-underline:after': {
+    // borderBottomColor: 'blue',
+    // },
+    '& .MuiOutlinedInput-root': {
+      '& fieldset': {
+        // borderColor: 'pink',
+      },
+      '&:hover fieldset': {
+        borderColor: '#5d5d5d',
+      },
+      '&.Mui-focused fieldset': {
+        borderColor: '#00D5FA',
+      },
+      '&.Mui-error fieldset': {
+        borderColor: '#f44336',
+      },
+    },
+  })
+
   return (
     <Formik
       onSubmit={handleFormSubmit}
@@ -170,7 +194,8 @@ const Form = () => {
             >
               {isRegister && (
                 <>
-                  <TextField
+                  {/* <TextField */}
+                  <CssTextField
                     label='First Name'
                     onBlur={handleBlur}
                     onChange={handleChange}
@@ -178,9 +203,25 @@ const Form = () => {
                     name='firstName' // align name with initialValuesRegister
                     error={Boolean(touched.firstName) && Boolean(errors.firstName)}
                     helperText={touched.firstName && errors.firstName}
-                    sx={{ gridColumn: 'span 2' }} // will be overwritten on mobile with parent's sx gridColumn // !
+                    sx={{
+                      gridColumn: 'span 2',
+                      // '&:hover .MuiOutlinedInput-notchedOutline:not(:focus-visible)': {
+                      '&:hover:not(:focus) .MuiOutlinedInput-notchedOutline:not(:focus)':
+                        {
+                          // border: '1px solid transparent',
+                          // borderColor: 'green',
+                        },
+                      '& .MuiInputBase-root-MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline':
+                        {
+                          // borderColor: 'blue',
+                        },
+                      '& MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline': {
+                        // borderColor: 'blue',
+                      },
+                    }} // will be overwritten on mobile with parent's sx gridColumn // !
+                    // .css-12vynk1-MuiInputBase-root-MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline
                   />
-                  <TextField
+                  <CssTextField
                     label='Last Name'
                     onBlur={handleBlur}
                     onChange={handleChange}
@@ -190,7 +231,7 @@ const Form = () => {
                     helperText={touched.lastName && errors.lastName}
                     sx={{ gridColumn: 'span 2' }}
                   />
-                  <TextField
+                  <CssTextField
                     label='Location'
                     onBlur={handleBlur}
                     onChange={handleChange}
@@ -200,7 +241,7 @@ const Form = () => {
                     helperText={touched.location && errors.location}
                     sx={{ gridColumn: 'span 4' }} // take full line
                   />
-                  <TextField
+                  <CssTextField
                     label='Occupation'
                     onBlur={handleBlur}
                     onChange={handleChange}
@@ -212,13 +253,21 @@ const Form = () => {
                   />
                   <Box
                     gridColumn='span 4'
-                    border={`1px solid ${palette.neutral.medium}`}
-                    //
-                    //   border={`1px solid  ${
-                    //     touched.picture && errors.picture ? '#f44336' : palette.neutral.medium
-                    //   }`}
+                    // border={`1px solid ${palette.neutral.medium}`}
+                    border={`1px solid  ${
+                      touched.picture && errors.picture
+                        ? '#f44336'
+                        : 'rgba(255, 255, 255, 0.23);'
+                      // : palette.neutral.medium
+                    }`}
                     borderRadius='5px'
                     p='1rem'
+                    sx={{
+                      '&:hover': {
+                        // borderColor: '#8d8d8d',
+                        borderColor: '#5d5d5d',
+                      },
+                    }}
                   >
                     <Dropzone
                       acceptedFiles='.jpeg,.jpg,.png'
@@ -232,6 +281,7 @@ const Form = () => {
                           {...getRootProps()}
                           border={`2px dashed ${palette.primary.main}`}
                           p='1rem'
+                          // m='1rem'
                           sx={{
                             '&:hover': {
                               cursor: 'pointer',
@@ -252,11 +302,16 @@ const Form = () => {
                         </Box>
                       )}
                     </Dropzone>
+                    {touched.picture && errors.picture && (
+                      <Typography mt='0.75rem' fontSize='0.7rem' color='#f44336'>
+                        {errors.picture}
+                      </Typography>
+                    )}
                   </Box>
                 </>
               )}
               {/* For both Register & Login */}
-              <TextField
+              <CssTextField
                 label='Email'
                 onBlur={handleBlur}
                 onChange={handleChange}
@@ -266,7 +321,7 @@ const Form = () => {
                 helperText={touched.email && errors.email}
                 sx={{ gridColumn: 'span 4' }}
               />
-              <TextField
+              <CssTextField
                 label='Password'
                 type='password'
                 onBlur={handleBlur}
