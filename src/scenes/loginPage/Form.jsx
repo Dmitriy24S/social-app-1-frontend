@@ -48,8 +48,8 @@ const initialValuesRegister = {
 // }
 
 const Form = () => {
-  // const [pageType, setPageType] = useState('login')
-  const [pageType, setPageType] = useState('register')
+  const [pageType, setPageType] = useState('login')
+  // const [pageType, setPageType] = useState('register')
   const { palette } = useTheme()
   const dispatch = useDispatch()
   const navigate = useNavigate()
@@ -67,10 +67,14 @@ const Form = () => {
       }
       formData.append('picturePath', values.picture.name) // manually append
 
-      const savedUserResponse = await fetch('http://localhost:3001/auth/register', {
-        method: 'POST',
-        body: formData,
-      })
+      // const savedUserResponse = await fetch('http://localhost:3001/auth/register', {
+      const savedUserResponse = await fetch(
+        `${process.env.REACT_APP_API_URL}/auth/register`,
+        {
+          method: 'POST',
+          body: formData,
+        }
+      )
       const savedUser = await savedUserResponse.json()
       onSubmitProps.resetForm()
 
@@ -85,11 +89,15 @@ const Form = () => {
 
   const login = async (values, onSubmitProps) => {
     try {
-      const loggedInResponse = await fetch('http://localhost:3001/auth/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(values),
-      })
+      // const loggedInResponse = await fetch('http://localhost:3001/auth/login', {
+      const loggedInResponse = await fetch(
+        `${process.env.REACT_APP_API_URL}/auth/login`,
+        {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(values),
+        }
+      )
 
       const loggedIn = await loggedInResponse.json()
       onSubmitProps.resetForm()

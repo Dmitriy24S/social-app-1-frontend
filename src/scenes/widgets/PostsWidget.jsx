@@ -14,7 +14,8 @@ const PostsWidget = ({ userId, isProfile = false }) => {
 
   const getPosts = async () => {
     try {
-      const response = await fetch('http://localhost:3001/posts', {
+      // const response = await fetch('http://localhost:3001/posts', {
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/posts`, {
         method: 'GET',
         headers: { Authorization: `Bearer ${token}` }, // to validate api call
       })
@@ -28,10 +29,14 @@ const PostsWidget = ({ userId, isProfile = false }) => {
 
   const getUserPosts = async () => {
     try {
-      const response = await fetch(`http://localhost:3001/posts/${userId}/posts`, {
-        method: 'GET',
-        headers: { Authorization: `Bearer ${token}` }, // to validate api call
-      })
+      // const response = await fetch(`http://localhost:3001/posts/${userId}/posts`, {
+      const response = await fetch(
+        `${process.env.REACT_APP_API_URL}/posts/${userId}/posts`,
+        {
+          method: 'GET',
+          headers: { Authorization: `Bearer ${token}` }, // to validate api call
+        }
+      )
       const data = await response.json()
       dispatch(setPosts({ posts: data })) // ! {}
     } catch (error) {

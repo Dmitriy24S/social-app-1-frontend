@@ -15,12 +15,16 @@ const FriendListWidget = ({ userId }) => {
   // not just use from user, because will be used when open other user profiles so not only current user
   const getFriends = async () => {
     try {
-      const response = await fetch(`http://localhost:3001/users/${userId}/friends`, {
-        method: 'GET',
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
+      // const response = await fetch(`http://localhost:3001/users/${userId}/friends`, {
+      const response = await fetch(
+        `${process.env.REACT_APP_API_URL}/users/${userId}/friends`,
+        {
+          method: 'GET',
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
       const data = await response.json()
       console.log('Friend:ist getFriends data:', data) // []
       // [

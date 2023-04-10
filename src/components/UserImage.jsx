@@ -5,7 +5,8 @@ const UserImage = ({ image, size = '60px' }) => {
     <Box width={size} height={size}>
       <img
         // src={image}
-        src={`http://localhost:3001/assets/${image}`}
+        // src={`http://localhost:3001/assets/${image}`}
+        src={`${process.env.REACT_APP_API_URL}/assets/${image}`}
         alt='user'
         width={size}
         height={size}

@@ -41,15 +41,19 @@ const PostWidget = ({
 
   const patchLike = async () => {
     try {
-      const response = await fetch(`http://localhost:3001/posts/${postId}/like`, {
-        method: 'PATCH',
-        // TODO: wrapper for repeat Bearer etc.?
-        headers: {
-          Authorization: `Bearer ${token}`,
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ userId: loggedInUserId }), // ! backend keep track whether current userid has liked the post
-      })
+      // const response = await fetch(`http://localhost:3001/posts/${postId}/like`, {
+      const response = await fetch(
+        `${process.env.REACT_APP_API_URL}/posts/${postId}/like`,
+        {
+          method: 'PATCH',
+          // TODO: wrapper for repeat Bearer etc.?
+          headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ userId: loggedInUserId }), // ! backend keep track whether current userid has liked the post
+        }
+      )
       const updatedPost = await response.json()
       // dispatch(setPost(updatedPost))
       dispatch(setPost({ post: updatedPost })) // !
@@ -82,7 +86,8 @@ const PostWidget = ({
       {/* PICTURE */}
       {picturePath && (
         <img
-          src={`http://localhost:3001/assets/${picturePath}`} // !
+          // src={`http://localhost:3001/assets/${picturePath}`} // !
+          src={`${process.env.REACT_APP_API_URL}/assets/${picturePath}`} // !
           alt='post'
           width='100%'
           height='auto'
