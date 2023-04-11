@@ -1,4 +1,13 @@
-# Getting Started with Create React App
+# Social Media App - Frontend
+
+![Design preview for Social Media App - Frontend](./design-preview/design-preview.png)
+
+## Welcome
+
+Social Media App - Frontend. Created with React, CSS, MUI, redux, persist, react-icons, formik, react dropzone, useMemo
+[Live Demo](https://social-app-1-frontend.vercel.app/) 👈
+
+## Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
